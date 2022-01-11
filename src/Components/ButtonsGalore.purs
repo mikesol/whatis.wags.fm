@@ -81,7 +81,7 @@ render { audioUIState, muzak } =
     [ HH.h3_ [ HH.text "use the buttons below to change the example" ]
     , HH.small_
         [ HH.text "or experiment with any sound listed "
-        , HH.a [ HP.target "_blank", HP.href "https://github.com/mikesol/wagsi/blob/main/SOUNDS.md" ] [ HH.text "here" ]
+        , HH.a [ HP.target "_blank", HP.href "https://github.com/mikesol/wagsi/blob/main/SOUNDS.md" ] [ HH.text "here." ], HH.text " it's all still editable!"
         ]
     , HH.pre_
         [ HH.code
