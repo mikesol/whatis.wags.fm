@@ -8,7 +8,7 @@
 	"license": "MIT",
 	"scripts": {
 		"start": "spago install && spago build && webpack serve --open",
-		"build": "webpack --mode=production"
+		"build": "spago install && spago build && webpack --mode=production"
 	},
 	"author": {
 		"name": "Hakim El Hattab",
