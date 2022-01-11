@@ -1,0 +1,1 @@
+exports.unsafeParseEvent = (event) => parseFloat(event.target.value);
