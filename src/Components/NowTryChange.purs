@@ -82,7 +82,7 @@ render { audioUIState } =
             , HH.attr (HH.AttrName "data-noescape") "true"
             , onKeyDown (const DoPush)
             ]
-            [ HH.text "future bd hh chin*4" ]
+            [ HH.text "bd tink hh chin*4" ]
         ]
     , HH.i
         [ classes
