@@ -219,6 +219,9 @@ jungle = """<
   [bd bd hh*2 [notes:1, chin*4]]
 
   [[bd,hh:4] bd hh*2 [notes:6, chin*4] bd bd hh*2 [notes:7, chin*4]]
+  [bd bd hh*2 [notes:8, chin*4] bd bd hh*2 [notes:9, chin*4]]
+  [[bd,hh:5] bd hh*2 [notes:10, chin*4] bd bd hh*2 [notes:12, chin*4]]
+  [bd bd hh*2 [notes:13, chin*4] bd bd hh*2 [notes:14, chin*4]]
 
 # @duration 0.6
 >"""
