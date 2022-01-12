@@ -88,9 +88,9 @@ render _ =
                 justifyContent spaceBetween
             ]
             [ HH.div [] []
-            , HH.a [ CSS.style bttn, HP.href "https://yap.wags.fm/p/09-12-2021" ] [ HH.text "happy birthday" ]
-            , HH.a [ CSS.style bttn, HP.href "https://yap.wags.fm/p/31-12-2021" ] [ HH.text "rauhaa, vain rauhaa" ]
-            , HH.a [ CSS.style bttn, HP.href "https://yap.wags.fm/p/21-12-2021" ] [ HH.text "dirty beats" ]
+            , HH.a [ CSS.style bttn, HP.href "https://yap.wags.fm/p/09-12-2021", HP.target "_blank" ] [ HH.text "happy birthday" ]
+            , HH.a [ CSS.style bttn, HP.href "https://yap.wags.fm/p/31-12-2021", HP.target "_blank" ] [ HH.text "rauhaa, vain rauhaa" ]
+            , HH.a [ CSS.style bttn, HP.href "https://yap.wags.fm/p/21-12-2021", HP.target "_blank" ] [ HH.text "dirty beats" ]
             , HH.div [] []
             ]
         , HH.div [ CSS.style do flexGrow 1.0 ] []
