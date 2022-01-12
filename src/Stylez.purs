@@ -30,10 +30,11 @@ bttn = do
   display inlineBlock
   fontSize (16.0 # px)
 
-codeStyle rlabel a = [ CSS.style (border solid (2.0 # px) (rgb 100 100 100))
-            , HH.attr (HH.AttrName "contenteditable") "true"
-            , HP.ref rlabel
-            , HH.attr (HH.AttrName "data-trim") "true"
-            , HH.attr (HH.AttrName "data-noescape") "true"
-            , onKeyDown (const a)
-            ]
+codeStyle rlabel a =
+  [ CSS.style (border solid (2.0 # px) (rgb 100 100 100))
+  , HH.attr (HH.AttrName "contenteditable") "true"
+  , HP.ref rlabel
+  , HH.attr (HH.AttrName "data-trim") "true"
+  , HH.attr (HH.AttrName "data-noescape") "true"
+  , onKeyDown (const a)
+  ]
