@@ -13,8 +13,7 @@ import Halogen (RefLabel(..))
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.CSS as CSS
-import Halogen.HTML.Events (onClick, onKeyDown)
-import Halogen.HTML.Properties as HP
+import Halogen.HTML.Events (onClick)
 import Halogen.Subscription as HS
 import Lib (initializeWags)
 import Nonbili.DOM (innerText)

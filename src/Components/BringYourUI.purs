@@ -17,7 +17,7 @@ import Halogen (RefLabel(..))
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.CSS as CSS
-import Halogen.HTML.Events (onClick, onInput, onKeyDown)
+import Halogen.HTML.Events (onClick, onInput)
 import Halogen.HTML.Properties (InputType(..))
 import Halogen.HTML.Properties as HP
 import Halogen.Subscription as HS

@@ -2,7 +2,7 @@ module Components.ButtonsGalore where
 
 import Prelude
 
-import CSS (column, cursor, display, flex, flexDirection, flexGrow, justifyContent, px, row, spaceBetween, width)
+import CSS (column, cursor, display, flex, flexDirection, flexGrow, justifyContent, row, spaceBetween)
 import CSS.Cursor (pointer)
 import Data.Foldable (for_)
 import Data.Maybe (Maybe(..))
@@ -13,7 +13,7 @@ import Halogen (RefLabel(..))
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.CSS as CSS
-import Halogen.HTML.Events (onClick, onKeyDown)
+import Halogen.HTML.Events (onClick)
 import Halogen.HTML.Properties as HP
 import Halogen.Subscription as HS
 import Lib (initializeWags)
@@ -47,7 +47,7 @@ data Action
   | ThisIsPush (Boolean -> Effect Unit)
   | LoFi
   | India
-  | Jungle
+  | Glitch
 
 component
   :: forall query input output m
@@ -72,7 +72,7 @@ initialState _ =
   , audioUIState: AUStopped
   , buttonEffect: mempty
   , push: mempty
-  , muzak: jungle
+  , muzak: glitch
   }
 
 render :: forall m. State -> H.ComponentHTML Action () m
@@ -103,7 +103,7 @@ render { audioUIState, muzak } =
             [ HH.div [] []
             , HH.button [ onClick (const India), CSS.style bttn ] [ HH.text "tablas" ]
             , HH.button [ onClick (const LoFi), CSS.style bttn ] [ HH.text "lo-fi" ]
-            , HH.button [ onClick (const Jungle), CSS.style bttn ] [ HH.text "jungle" ]
+            , HH.button [ onClick (const Glitch), CSS.style bttn ] [ HH.text "glitch" ]
             , HH.i
                 [ classes
                     ( [ "fas", "fa-lg" ] <> case audioUIState of
@@ -200,23 +200,19 @@ handleAction
       India -> mdfy
         """tabla:20 tabla:1 tabla:3 tabla:16
 # @duration 3.0"""
-      Jungle -> mdfy jungle
+      Glitch -> mdfy glitch
 
-jungle :: String
-jungle = """<
+glitch :: String
+glitch = """<
   [bd bd hh*2 [notes:6, chin*4]]
-  [bd bd hh*2 [notes:7, chin*4]]
-  [bd bd hh*2 [notes:8, chin*4]]
-  [psr:2 hh hh hh*2]
-  [bd bd hh*2 [notes:10, chin*4]]
-  [bd bd hh*3 [notes:12, chin*4]]
-  [bd bd hh*2 [notes:13, chin*4]]
-  [bd bd hh*2 [notes:1, chin*4]]
-
-  [[bd,hh:4] bd hh*2 [notes:6, chin*4] bd bd hh*2 [notes:7, chin*4]]
-  [bd bd hh*2 [notes:8, chin*4] bd bd hh*2 [notes:9, chin*4]]
-  [[bd,hh:5] bd hh*2 [notes:10, chin*4] bd bd hh*2 [notes:12, chin*4]]
-  [bd bd hh*2 [notes:13, chin*4] bd bd hh*2 [notes:14, chin*4]]
+  [bd glitch:2 hh*2 [notes:7, chin*4]]
+  [bd glitch:1 hh*2 [notes:8, chin*4]]
+  [psr:2 hh [hh,hh:5] hh*2]
+  [[bd,glitch:4] glitch:4 hh*2 [notes:10, chin*4]]
+  [[bd,glitch:4] bd hh*3 [notes:12, chin*4]]
+  [bd [bd,glitch:4] hh*2 [notes:13, chin*4]]
+  [bd [glitch:6,glitch:4] [hh*2, glitch:4] [notes:1, chin*4, glitch:4]]
+>
 
 # @duration 0.6
->"""
+"""

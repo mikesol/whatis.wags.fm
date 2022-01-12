@@ -2,8 +2,7 @@ module Components.AmazingWork where
 
 import Prelude
 
-import CSS (column, cursor, display, flex, flexDirection, flexGrow, justifyContent, px, row, spaceBetween, width)
-import CSS.Cursor (pointer)
+import CSS (column, display, flex, flexDirection, flexGrow, justifyContent, row, spaceBetween)
 import Data.Foldable (for_)
 import Data.Maybe (Maybe(..))
 import Effect (Effect)
@@ -13,14 +12,13 @@ import Halogen (RefLabel(..))
 import Halogen as H
 import Halogen.HTML as HH
 import Halogen.HTML.CSS as CSS
-import Halogen.HTML.Events (onClick, onKeyDown)
 import Halogen.HTML.Properties as HP
 import Halogen.Subscription as HS
 import Lib (initializeWags)
 import Nonbili.DOM (innerText)
 import SineQuaNon (SineQuaNon)
 import Stylez (bttn)
-import Util (classes, killNoMatterWhat, rfToRW)
+import Util (killNoMatterWhat, rfToRW)
 import WAGS.Lib.Tidal.Types (emptyCtrl)
 
 type State =
