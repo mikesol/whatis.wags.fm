@@ -5,6 +5,10 @@ import Prelude
 import CSS (CSS, backgroundColor, bold, border, borderRadius, color, cursor, display, fontSize, fontWeight, inlineBlock, noneTextDecoration, paddingBottom, paddingLeft, paddingRight, paddingTop, px, rgb, solid, textDecoration, weight)
 import CSS.Cursor (pointer)
 import CSS.TextAlign (center, textAlign)
+import Halogen.HTML as HH
+import Halogen.HTML.CSS as CSS
+import Halogen.HTML.Events (onKeyDown)
+import Halogen.HTML.Properties as HP
 
 bttn :: CSS
 bttn = do
@@ -25,3 +29,11 @@ bttn = do
   textDecoration noneTextDecoration
   display inlineBlock
   fontSize (16.0 # px)
+
+codeStyle rlabel a = [ CSS.style (border solid (2.0 # px) (rgb 100 100 100))
+            , HH.attr (HH.AttrName "contenteditable") "true"
+            , HP.ref rlabel
+            , HH.attr (HH.AttrName "data-trim") "true"
+            , HH.attr (HH.AttrName "data-noescape") "true"
+            , onKeyDown (const a)
+            ]

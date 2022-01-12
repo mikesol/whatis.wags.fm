@@ -24,6 +24,7 @@ import Halogen.Subscription as HS
 import Lib (initializeWags)
 import Nonbili.DOM (innerText)
 import SineQuaNon (SineQuaNon)
+import Stylez (codeStyle)
 import Util (classes, killNoMatterWhat, rfToRW)
 import WAGS.Lib.Tidal.Types (ExternalControl)
 import WAGS.Lib.Tidal.Util (r2b)
@@ -92,6 +93,7 @@ wag =
           ) $ s $ "tink:1 tink:2 tink:3 tink:4"
     }
 """
+
 type State =
   { subscription :: Maybe H.SubscriptionId
   , audioUIState :: AudioUIDislay
@@ -153,12 +155,7 @@ render { audioUIState } =
     , HH.small_ [ HH.text "wags.fm supports thousands of configurable skins for visual music editing. press play & try the sliders below!" ]
     , HH.pre_
         [ HH.code
-            [ HH.attr (HH.AttrName "contenteditable") "true"
-            , HP.ref rlabel
-            , HH.attr (HH.AttrName "data-trim") "true"
-            , HH.attr (HH.AttrName "data-noescape") "true"
-            , onKeyDown (const DoPush)
-            ]
+            (codeStyle rlabel DoPush)
             [ HH.text bringYourOwnUIExample ]
         ]
     , HH.div
@@ -204,7 +201,8 @@ handleAction
   , unregisterSlideChange
   , prevCycle
   , playingState
-  } ctrl = case _ of
+  }
+  ctrl = case _ of
   Initialize -> do
     { emitter, listener } <- H.liftEffect $ HS.create
     subscription <- H.subscribe emitter

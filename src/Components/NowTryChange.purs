@@ -19,6 +19,7 @@ import Halogen.Subscription as HS
 import Lib (initializeWags)
 import Nonbili.DOM (innerText)
 import SineQuaNon (SineQuaNon)
+import Stylez (codeStyle)
 import Util (classes, killNoMatterWhat, rfToRW)
 import WAGS.Lib.Tidal.Types (emptyCtrl)
 
@@ -72,16 +73,11 @@ initialState _ =
 render :: forall m. State -> H.ComponentHTML Action () m
 render { audioUIState } =
   HH.div_
-    [ HH.h3_ [ HH.text "now edit the text below"  ]
+    [ HH.h3_ [ HH.text "now edit the text below" ]
     , HH.small_ [ HH.text "for example, press play, click on hh, and change it to auto" ]
     , HH.pre_
         [ HH.code
-            [ HH.attr (HH.AttrName "contenteditable") "true"
-            , HP.ref rlabel
-            , HH.attr (HH.AttrName "data-trim") "true"
-            , HH.attr (HH.AttrName "data-noescape") "true"
-            , onKeyDown (const DoPush)
-            ]
+            (codeStyle rlabel DoPush)
             [ HH.text "bd tink hh chin*4" ]
         ]
     , HH.i

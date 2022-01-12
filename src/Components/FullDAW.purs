@@ -19,6 +19,7 @@ import Halogen.Subscription as HS
 import Lib (initializeWags)
 import Nonbili.DOM (innerText)
 import SineQuaNon (SineQuaNon)
+import Stylez (codeStyle)
 import Util (classes, killNoMatterWhat, rfToRW)
 import WAGS.Lib.Tidal.Types (emptyCtrl)
 
@@ -116,12 +117,7 @@ render { audioUIState } =
     , HH.small_ [ HH.text "its unique text-based format allows musicians to innovate using the power of code." ]
     , HH.pre_
         [ HH.code
-            [ HH.attr (HH.AttrName "contenteditable") "true"
-            , HP.ref rlabel
-            , HH.attr (HH.AttrName "data-trim") "true"
-            , HH.attr (HH.AttrName "data-noescape") "true"
-            , onKeyDown (const DoPush)
-            ]
+            (codeStyle rlabel DoPush)
             [ HH.text fullDAWExample ]
         ]
     , HH.i

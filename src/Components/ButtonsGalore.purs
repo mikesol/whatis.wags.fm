@@ -19,7 +19,7 @@ import Halogen.Subscription as HS
 import Lib (initializeWags)
 import Nonbili.DOM (innerText)
 import SineQuaNon (SineQuaNon)
-import Stylez (bttn)
+import Stylez (bttn, codeStyle)
 import Util (classes, killNoMatterWhat, rfToRW)
 import WAGS.Lib.Tidal.Types (emptyCtrl)
 
@@ -78,19 +78,14 @@ initialState _ =
 render :: forall m. State -> H.ComponentHTML Action () m
 render { audioUIState, muzak } =
   HH.div_
-    [ HH.h3_ [ HH.text "use the buttons below to change the example" ]
+    [ HH.h3_ [ HH.text "try out the buttons below" ]
     , HH.small_
         [ HH.text "or experiment with any sound listed "
         , HH.a [ HP.target "_blank", HP.href "https://github.com/mikesol/wagsi/blob/main/SOUNDS.md" ] [ HH.text "here." ], HH.text " it's all still editable!"
         ]
     , HH.pre_
         [ HH.code
-            [ HH.attr (HH.AttrName "contenteditable") "true"
-            , HP.ref rlabel
-            , HH.attr (HH.AttrName "data-trim") "true"
-            , HH.attr (HH.AttrName "data-noescape") "true"
-            , onKeyDown (const DoPush)
-            ]
+            (codeStyle rlabel DoPush)
             [ HH.text muzak ]
         ]
     , HH.div
@@ -106,7 +101,7 @@ render { audioUIState, muzak } =
                 justifyContent spaceBetween
             ]
             [ HH.div [] []
-            , HH.button [ onClick (const India), CSS.style bttn ] [ HH.text "india" ]
+            , HH.button [ onClick (const India), CSS.style bttn ] [ HH.text "tablas" ]
             , HH.button [ onClick (const LoFi), CSS.style bttn ] [ HH.text "lo-fi" ]
             , HH.button [ onClick (const Jungle), CSS.style bttn ] [ HH.text "jungle" ]
             , HH.i
