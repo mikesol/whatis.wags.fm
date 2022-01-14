@@ -50,8 +50,6 @@
 		"gulp-tap": "^2.0.0",
 		"gulp-zip": "^4.2.0",
 		"highlight.js": "^10.0.3",
-		"html-webpack-inline-source-plugin": "^0.0.10",
-		"html-webpack-plugin": "^5.5.0",
 		"marked": "^2.0.3",
 		"node-qunit-puppeteer": "^2.1.0",
 		"purescript": "^0.14.5",
