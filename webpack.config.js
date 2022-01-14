@@ -1,6 +1,9 @@
 const path = require("path");
 const webpack = require("webpack");
-module.exports = {
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const HtmlWebpackInlineSourcePlugin = require('html-webpack-inline-source-plugin');
+
+module.exports = env => ({
 	mode: "development",
 	entry: "./src/index.js",
 	output: {
@@ -47,10 +50,11 @@ module.exports = {
 		new webpack.IgnorePlugin({
 			resourceRegExp: /^xhr2$/,
 		}),
+		new HtmlWebpackPlugin(),
 	],
 	devServer: {
 		static: {
 			directory: path.join(__dirname, "dist"),
 		},
 	},
-};
+});

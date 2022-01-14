@@ -9,7 +9,7 @@ log/*.log
 tmp/**
 node_modules/
 .sass-cache
-dist/bundle.js
+dist/*
 # purescript
 /bower_components/
 /.pulp-cache/
