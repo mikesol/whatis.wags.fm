@@ -1,6 +1,10 @@
 module Lib
   ( somethingChanged
   , initializeWags
+  , sanitizePS
+  , loader
+  , compileUrl
+  , compileErrorsToString
   -----
   , InitSig
   , PlayingState(..)
@@ -46,7 +50,7 @@ import Foreign.Index (readProp)
 import Foreign.Object (Object)
 import Foreign.Object as Object
 import JIT.API as API
-import JIT.Compile (compile)
+import JIT.Compile (CompileSuccess, compile)
 import JIT.EvalSources (Modules, evalSources)
 import JIT.Loader (Loader, makeLoader)
 import Text.Parsing.StringParser (Parser, fail, runParser)
@@ -288,13 +292,16 @@ parseUsingDefault d = fromMaybe d
   <<< parseWithBrackets
 
 initializeWags
-  :: Behavior ExternalControl -> RW (T.Cycle (VM.Maybe (TT.Note Unit)))
+  :: Maybe CompileSuccess
+  -> RW Boolean
+  -> Behavior ExternalControl
+  -> RW (T.Cycle (VM.Maybe (TT.Note Unit)))
   -> RW PlayingState
   -> RW SampleCache
   -> RW Modules
   -> Effect String
   -> InitSig
-initializeWags externalControl cycleRef playingState bufferCache modulesR gcText setAlert removeAlert onLoad onStop onPlay setAwfulHack = do
+initializeWags stocked started externalControl cycleRef playingState bufferCache modulesR gcText setAlert removeAlert onLoad onStop onPlay setAwfulHack = do
   -- Log.info "clicked"
   pst <- playingState.read
   case pst of
@@ -334,18 +341,22 @@ initializeWags externalControl cycleRef playingState bufferCache modulesR gcText
 
         crunch :: Boolean -> FFIAudioSnapshot -> AudioContext -> String -> (AFuture -> Effect Unit) -> Aff Unit
         crunch shouldStart ffiAudio audioCtx txt nextWag = do
-          -- todo: can compile be fiberized to be faster?
-          -- Log.info "step 1"
-          res <- makeAff \cb -> do
-            compile
-              { code: sanitizePS txt
-              , loader
-              , compileUrl
-              , ourFaultErrorCallback: cb <<< Right <<< Left <<< show
-              , yourFaultErrorCallback: cb <<< Right <<< Left <<< compileErrorsToString
-              , successCallback: cb <<< Right <<< Right <<< _.js
-              }
-            mempty
+          -- check is started
+          -- if not started and cache exists, use cache
+          let
+            mkAff = makeAff \cb -> do
+              compile
+                { code: sanitizePS txt
+                , loader
+                , compileUrl
+                , ourFaultErrorCallback: cb <<< Right <<< Left <<< show
+                , yourFaultErrorCallback: cb <<< Right <<< Left <<< compileErrorsToString
+                , successCallback: cb <<< Right <<< Right <<< _.js
+                }
+              mempty
+          didStart <- liftEffect started.read
+          res <- if not didStart then (maybe mkAff (pure <<< Right <<< _.js) stocked) else mkAff
+          liftEffect $ started.write true
           -- Log.info "step 2"
           res # either
             ( \s -> liftEffect do
