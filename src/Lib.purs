@@ -58,11 +58,10 @@ import Types (RW)
 import Unsafe.Coerce (unsafeCoerce)
 import WAGS.Interpret (FFIAudioSnapshot, close, constant0Hack, context, contextResume, contextState, makeFFIAudioSnapshot)
 import WAGS.Lib.Learn (Analysers, FullSceneBuilder(..))
-import WAGS.Lib.Tidal (AFuture)
 import WAGS.Lib.Tidal.Engine (engine)
 import WAGS.Lib.Tidal.Tidal (drone, openFuture, parseWithBrackets)
 import WAGS.Lib.Tidal.Tidal as T
-import WAGS.Lib.Tidal.Types (BufferUrl(..), SampleCache, TidalRes, ExternalControl)
+import WAGS.Lib.Tidal.Types (AFuture, BufferUrl(..), SampleCache, TidalRes, ExternalControl)
 import WAGS.Lib.Tidal.Types as TT
 import WAGS.Lib.Tidal.Util (doDownloads')
 import WAGS.Run (Run, run)
@@ -318,6 +317,7 @@ initializeWags externalControl cycleRef playingState bufferCache modulesR gcText
                   (pure unit)
                   (map (const <<< const) (r2b wagRef))
                   externalControl
+                  (pure (wrap mempty))
                   (Left (e2b bufferCache.read))
             trigger /\ world <- snd $ triggerWorld (audioCtx /\ (pure (pure {} /\ pure {})))
             liftEffect do
