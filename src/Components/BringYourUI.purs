@@ -42,6 +42,7 @@ import Data.Typelevel.Num.Reps (d0, d1)
 import WAGS.Lib.Learn.Oscillator (lfo)
 import WAGS.Lib.Tidal.Types (AFuture)
 import WAGS.Graph.Parameter (ff)
+import WAGS.Graph.Paramable (paramize)
 import WAGS.Lib.Tidal.FX (fx, goodbye, hello)
 import WAGS.Lib.Tidal.Tidal (addEffect, make, s)
 
@@ -63,7 +64,7 @@ wag =
                     { ipt: hello
                     , mxr: gain 1.0
                         { bp0: gain 0.2 $ bandpass
-                            { freq: f $ pure $ 2000.0 + freqAdd + lfo
+                            { freq: f $ paramize $ 2000.0 + freqAdd + lfo
                                 { phase: 0.0
                                 , freq: 0.3
                                 , amp: 1500.0
@@ -73,7 +74,7 @@ wag =
                             }
                             { oscs: ref }
                         , bp1: gain 0.2 $ highpass
-                            { freq: f $ pure $ 2300.0 + freqAdd + lfo
+                            { freq: f $ paramize $ 2300.0 + freqAdd + lfo
                                 { phase: 0.0
                                 , freq: 0.1
                                 , amp: 1400.0
@@ -84,8 +85,8 @@ wag =
                             { oscs: ref }
                         , muted: gain 0.0
                             { oscs: gain 1.0
-                                { osc0: triangleOsc (f $ pure $ fund)
-                                , osc1: sinOsc (f $ pure $ fund * 2.0 + 10.0)
+                                { osc0: triangleOsc (f $ paramize $ fund)
+                                , osc1: sinOsc (f $ paramize $ fund * 2.0 + 10.0)
                                 }
                             }
                         }
