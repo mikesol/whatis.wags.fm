@@ -1,5 +1,6 @@
 const path = require("path");
 const webpack = require("webpack");
+const CopyPlugin = require("copy-webpack-plugin");
 module.exports = {
 	mode: "development",
 	entry: "./src/index.js",
@@ -46,6 +47,9 @@ module.exports = {
 	plugins: [
 		new webpack.IgnorePlugin({
 			resourceRegExp: /^xhr2$/,
+		}),
+		new CopyPlugin({
+			patterns: [{ from: path.resolve(__dirname, "src/images"), to: "images" }],
 		}),
 	],
 	devServer: {

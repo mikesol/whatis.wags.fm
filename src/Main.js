@@ -1,1 +1,1 @@
-exports.setAlert_ = (notyf) => (text) => () => notyf.error(text);
+export const setAlert_ = (notyf) => (text) => () => notyf.error(text);
